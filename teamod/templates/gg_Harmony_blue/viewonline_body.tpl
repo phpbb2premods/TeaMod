@@ -1,0 +1,63 @@
+
+{NAVIGATION_BOX}
+
+<table class="forumline" width="100%" cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<th class="thCornerL" width="35%" height="25">&nbsp;{L_USERNAME}&nbsp;</th>
+		<th class="thTop" width="25%">&nbsp;{L_LAST_UPDATE}&nbsp;</th>
+		<th class="thCornerR" width="40%">&nbsp;{L_FORUM_LOCATION}&nbsp;</th>
+	</tr>
+	<tr>
+		<td class="catSides" height="28" colspan="3"><span class="cattitle"><b>{TOTAL_REGISTERED_USERS_ONLINE}</b></span></td>
+	</tr>
+	<!-- BEGIN reg_user_row -->
+	<tr>
+		<td class="{reg_user_row.ROW_CLASS}" width="35%">&nbsp;<span class="gen"><a href="{reg_user_row.U_USER_PROFILE}" class="gen">{reg_user_row.USERNAME}</a></span>&nbsp;</td>
+		<td class="{reg_user_row.ROW_CLASS}" width="25%" align="center" nowrap="nowrap">&nbsp;<span class="gen">{reg_user_row.LASTUPDATE}</span>&nbsp;</td>
+		<td class="{reg_user_row.ROW_CLASS}" width="40%">&nbsp;<span class="gen"><a href="{reg_user_row.U_FORUM_LOCATION}" class="gen">{reg_user_row.FORUM_LOCATION}</a></span>&nbsp;</td>
+	</tr>
+	<!-- END reg_user_row -->
+	<tr>
+		<td class="spaceRow" height="1" colspan="3"><img src="{I_SPACER}" width="1" height="1" alt="."></td>
+	</tr>
+	<tr>
+		<td class="catSides" height="28" colspan="3"><span class="cattitle"><b>{TOTAL_GUEST_USERS_ONLINE}</b></span></td>
+	</tr>
+	<!-- BEGIN guest_user_row -->
+	<tr>
+		<td class="{guest_user_row.ROW_CLASS}" width="35%">&nbsp;<span class="gen">{guest_user_row.USERNAME}</span>&nbsp;</td>
+		<td class="{guest_user_row.ROW_CLASS}" width="25%" align="center" nowrap="nowrap">&nbsp;<span class="gen">{guest_user_row.LASTUPDATE}</span>&nbsp;</td>
+		<td class="{guest_user_row.ROW_CLASS}" width="40%">&nbsp;<span class="gen"><a href="{guest_user_row.U_FORUM_LOCATION}" class="gen">{guest_user_row.FORUM_LOCATION}</a></span>&nbsp;</td>
+	</tr>
+	<!-- END guest_user_row -->
+</table>
+<table class="shadow" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td class="shleft"><img src="{I_SPACER}" alt="" width="8" height="4" /></td>
+		<td class="shbottom"><img src="{I_SPACER}" alt="" width="8" height="4" /></td>
+		<td class="shright"><img src="{I_SPACER}" alt="" width="8" height="4" /></td>
+	</tr>
+</table>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td height="5" align="center"><img src="{I_SPACER}" height="5" border="0" alt=""></td>
+	</tr>
+</table>
+<table width="100%" align="center" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td align="left" valign="top"><span class="gensmall">{L_ONLINE_EXPLAIN}</span></td>
+		<td align="right" valign="top"><span class="gensmall">{S_TIMEZONE}</span></td>
+	</tr>
+</table>
+
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td height="5" align="center"><img src="{I_SPACER}" height="5" border="0" alt=""></td>
+	</tr>
+</table>
+<table width="100%" align="center" cellspacing="0" border="0">
+	<tr>
+		<td valign="top" align="right">{JUMPBOX}</td>
+	</tr>
+</table>

@@ -1,0 +1,480 @@
+##############################################################
+## MOD Title:		Addon BBcode Hide for BBcode Box Reloaded
+## MOD Author: reddog < N/A > (N/A) http://www.reddevboard.com
+## MOD Author: Philiweb < N/A > (N/A) http://www.philiweb.com/
+## MOD Description:	this MOD add the BBcode Hide in your forum,
+##			required BBcode Box Reloaded MOD by reddog
+## MOD Version:		1.0.8
+## MOD Compatibility:	2.0.17 (required BBcode Box Reloaded 1.2.2)
+##
+## Installation Level:	Easy
+## Installation Time:	5 Minutes
+## Files To Edit:	8
+##	posting.php
+##	search.php
+##	viewtopic.php
+##	includes/bbcode.php
+##	includes/topic_review.php
+##	language/lang_english/lang_bbc_box.php
+##	language/lang_english/lang_main.php
+##	templates/subSilver/bbcode.tpl
+## Included Files:	2
+##	root/templates/bbc_box/styles/bbclite/hide.gif
+##	root/templates/bbc_box/styles/default/hide.gif
+##############################################################
+## For security purposes, please check: http://www.phpbb.com/mods/
+## for the latest version of this MOD. Although MODs are checked
+## before being allowed in the MODs Database there is no guarantee
+## that there are no security problems within the MOD. No support
+## will be given for MODs not found within the MODs Database which
+## can be found at http://www.phpbb.com/mods/
+##############################################################
+## Author Notes:
+##
+##############################################################
+## MOD History:
+##
+## 2005-10-06 - Version 1.0.8
+##	- ensure BBcBxR 1.2.2 compliancy
+## 2005-08-13 - Version 1.0.7
+##	- compatibility with BBcBxR 1.2.1
+## 2005-06-20 - Version 1.0.6
+##	- compatibility with BBcBxR 1.2.0
+## 2005-06-04 - Version 1.0.5
+##	- compatibility with BBcBxR 1.1.0
+## 2005-04-20 - Version 1.0.4
+##	- now modifications for add_bbcode.js are in the install file
+## 2005-03-02 - Version 1.0.3
+##	- corrected $lang english (capital first letter)
+##	- added $lang for Hide_in_quote function (bbcode.php)
+## 2005-02-07 - Version 1.0.2
+##	- maj add_bbcode.js to insert tag anywhere in message (Mozilla)
+## 2005-01-16 - Version 1.0.1
+##	- modified hide var (error in firefox)
+## 2005-01-14 - Version 1.0.0 
+##      - first release
+##	- Original BBcode Hide by Philiweb 
+##
+##############################################################
+## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD
+##############################################################
+#
+#-----[ SQL ]-------------------------------------------------
+#
+
+INSERT INTO phpbb_bbc_box (bbc_name, bbc_value, bbc_auth, bbc_before, bbc_after, bbc_helpline, bbc_img, bbc_divider) VALUES ('hide', '1', '0', 'hide', 'hide', 'hide', 'hide', '0');
+
+#
+#-----[ DIY INSTRUCTIONS ]------------------------------------
+#
+
+after to have execute this SQL query, go to ACP --> BBcode Box --> Configuration
+and renew the cache file
+
+(après avoir exécuté cette requête SQL, allez dans l'Administration --> BBcode Box --> Configuration
+et régénérez le fichier cache)
+
+#
+#-----[ COPY ]------------------------------------------------
+#
+copy root/templates/bbc_box/styles/bbclite/hide.gif to templates/bbc_box/styles/bbclite/hide.gif
+copy root/templates/bbc_box/styles/default/hide.gif to templates/bbc_box/styles/default/hide.gif
+#
+#-----[ OPEN ]------------------------------------------------
+#
+posting.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+		if( $attach_sig && $user_sig != '' && $userdata['user_sig_bbcode_uid'] )
+		{
+			$user_sig = bbencode_second_pass($user_sig, $userdata['user_sig_bbcode_uid']);
+		}
+
+		if( $bbcode_on )
+		{
+			$preview_message = bbencode_second_pass($preview_message, $bbcode_uid);
+		}
+#
+#-----[ REPLACE WITH ]----------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- delete
+/*-MOD
+		if( $attach_sig && $user_sig != '' && $userdata['user_sig_bbcode_uid'] )
+		{
+			$user_sig = bbencode_second_pass($user_sig, $userdata['user_sig_bbcode_uid']);
+		}
+
+		if( $bbcode_on )
+		{
+			$preview_message = bbencode_second_pass($preview_message, $bbcode_uid);
+		}
+MOD-*/
+//-- add
+		$valid = FALSE;
+		if( $userdata['session_logged_in'] ) {
+		$sql = "SELECT p.poster_id, p.topic_id
+			FROM " . POSTS_TABLE . " p
+				WHERE p.topic_id = $topic_id
+				AND p.poster_id = " . $userdata['user_id'];
+		$resultat = $db->sql_query($sql);
+		$valid = $db->sql_numrows($resultat) ? TRUE : FALSE;}
+
+		if( $attach_sig && $user_sig != '' && $userdata['user_sig_bbcode_uid'] )
+		{
+        		$user_sig = bbencode_second_pass($user_sig, $userdata['user_sig_bbcode_uid']);
+        		$user_sig = bbencode_third_pass($user_sig, $userdata['user_sig_bbcode_uid'], $valid);
+		}
+
+		if( $bbcode_on )
+		{
+        		$preview_message = bbencode_second_pass($preview_message, $bbcode_uid);
+        		$preview_message = bbencode_third_pass($preview_message, $bbcode_uid, $valid);
+		}
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+			if ( !preg_match('/^Re:/', $subject) && strlen($subject) > 0 )
+			{
+				$subject = 'Re: ' . $subject;
+			}
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+			if( !$userdata['session_logged_in'] )
+			{
+				$message = hide_in_quote($message);
+			}
+			else
+			{
+				$sql = "SELECT p.poster_id, p.topic_id
+					FROM " . POSTS_TABLE . " p
+						WHERE p.topic_id = $topic_id
+						AND p.poster_id = " . $userdata['user_id'];
+				$resultat = $db->sql_query($sql);
+				if(!$db->sql_numrows($resultat))
+				{
+					$message = hide_in_quote($message);
+				}
+			}
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ OPEN ]------------------------------------------------
+#
+search.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+					if ( $return_chars != -1 )
+#
+#-----[ REPLACE WITH ]----------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- delete
+/*-MOD
+				if ( $return_chars != -1 )
+MOD-*/
+//-- add
+					if ( $return_chars == -1 )
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+						if ( $bbcode_uid != '' )
+						{
+							$message = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($message, $bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $message);
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+							$message = bbencode_third_pass($message, $bbcode_uid, FALSE);
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ OPEN ]------------------------------------------------
+#
+viewtopic.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+//
+// Generate a 'Show posts in previous x days' select box. If the postdays var is POSTed
+// then get it's value, find the number of topics with dates newer than it (to properly
+// handle pagination) and alter the main query
+//
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+$valid = FALSE;
+if( $userdata['session_logged_in'] )
+{
+	$sql = "SELECT p.poster_id, p.topic_id
+		FROM " . POSTS_TABLE . " p
+			WHERE p.topic_id = $topic_id
+			AND p.poster_id = " . $userdata['user_id'];
+	$resultat = $db->sql_query($sql);
+	$valid = $db->sql_numrows($resultat) ? TRUE : FALSE;
+}
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+		if ( $user_sig != '' && $user_sig_bbcode_uid != '' )
+		{
+			$user_sig = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($user_sig, $user_sig_bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $user_sig);
+		}
+
+		if ( $bbcode_uid != '' )
+		{
+			$message = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($message, $bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $message);
+		}
+#
+#-----[ REPLACE WITH ]----------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- delete
+/*-MOD
+		if ( $user_sig != '' && $user_sig_bbcode_uid != '' )
+		{
+			$user_sig = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($user_sig, $user_sig_bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $user_sig);
+		}
+
+		if ( $bbcode_uid != '' )
+		{
+			$message = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($message, $bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $message);
+		}
+MOD-*/
+//-- add
+		if ( $user_sig != '' && $user_sig_bbcode_uid != '' )
+		{
+		        $user_sig = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($user_sig, $user_sig_bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $user_sig);
+		        $user_sig = bbencode_third_pass($user_sig, $user_sig_bbcode_uid, $valid);
+		}
+		
+		if ( $bbcode_uid != '' )
+		{
+		        $message = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($message, $bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $message);
+		        $message = bbencode_third_pass($message, $bbcode_uid, $valid);
+		}
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ OPEN ]------------------------------------------------
+#
+includes/bbcode.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+	$bbcode_tpl['email'] = str_replace('{EMAIL}', '\\1', $bbcode_tpl['email']);
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+	$bbcode_tpl['show'] = str_replace('{L_HIDE}', $lang['Hide'], $bbcode_tpl['show']);
+	$bbcode_tpl['show'] = str_replace('{HTEXTE}', '\\1', $bbcode_tpl['show']);
+	$bbcode_tpl['hide'] = str_replace('{L_HIDE}', $lang['Hide'], $bbcode_tpl['hide']);
+	$bbcode_tpl['hide'] = str_replace('{L_HIDE_TEXT}', $lang['Hide_text'], $bbcode_tpl['hide']);
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+/**
+ * Does second-pass bbencoding. This should be used before displaying the message in
+ * a thread. Assumes the message is already first-pass encoded, and we are given the
+ * correct UID as used in first-pass encoding.
+ */
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+function hide_in_quote($text)
+{
+	global $lang, $bbc_tag;
+
+	$hide = $bbc_tag['hide'];
+	$text = preg_replace("#\[$hide\](.*?)\[\/$hide\]#si", $lang['Hide_in_quote'], $text);
+	return $text;
+}
+
+function bbencode_third_pass($text, $uid, $deprotect)
+{
+        global $bbcode_tpl, $bbc_tag;
+
+	// pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
+	// This is important; bbencode_quote(), bbencode_list(), and bbencode_code() all depend on it.
+	$text = " " . $text;
+
+	// First: If there isn't a "[" and a "]" in the message, don't bother.
+	if (! (strpos($text, "[") && strpos($text, "]")) )
+	{
+		// Remove padding, return.
+		$text = substr($text, 1);
+		return $text;
+	}
+	// Patterns and replacements for URL and email tags..
+	$patterns = array();
+	$replacements = array();
+	$hide = $bbc_tag['hide'];
+
+	if ( $deprotect )
+	{
+		$patterns[0] = "#\[$hide:$uid\](.*?)\[/$hide:$uid\]#si";
+		$replacements[0] = $bbcode_tpl['show'];
+	}
+	else
+	{
+		$patterns[0] = "#\[$hide:$uid\](.*?)\[/$hide:$uid\]#si";
+		$replacements[0] = $bbcode_tpl['hide'];
+        }
+
+	$text = preg_replace($patterns, $replacements, $text);
+
+	// Remove our padding from the string..
+	$text = substr($text, 1);
+
+	return $text;
+}
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+	// [img]image_url_here[/img] code..
+	$text = preg_replace("#\[img\]
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+	//[hide]message[/hide]
+	$hide = $bbc_tag['hide'];
+	$bbc_sort = bbc_auth($bbc_auth['hide']);
+	$text = ($bbc_value['hide'] && $bbc_sort) ? preg_replace("#\[$hide\](.*?)\[\/$hide\]#si","[$hide:$uid]\\1[/$hide:$uid]", $text) : $text;
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ OPEN ]------------------------------------------------
+#
+includes/topic_review.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+	//
+	// Okay, let's do the loop, yeah come on baby let's do the loop
+	// and it goes like this ...
+	//
+	if ( $row = $db->sql_fetchrow($result) )
+	{
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+		$valid = FALSE;
+		if( $userdata['session_logged_in'] )
+		{
+			$sql = "SELECT p.poster_id, p.topic_id
+				FROM " . POSTS_TABLE . " p
+					WHERE p.topic_id = $topic_id
+					AND p.poster_id = " . $userdata['user_id'];
+			$resultat = $db->sql_query($sql);
+			$valid = $db->sql_numrows($resultat) ? TRUE : FALSE;
+		}
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+			if ( $bbcode_uid != "" )
+			{
+				$message = ( $board_config['allow_bbcode'] ) ? bbencode_second_pass($message, $bbcode_uid) : preg_replace('/\:[0-9a-z\:]+\]/si', ']', $message);
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+				$message = bbencode_third_pass($message, $bbcode_uid, $valid);
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ OPEN ]------------------------------------------------
+#
+# to add french version of this MOD, follows the instructions
+# in translations/french/lang_french.txt
+#
+# pour ajouter la version française de ce MOD, suivez les instructions
+# dans le fichier translations/french/lang_french.txt
+#
+language/lang_english/lang_bbc_box.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+// addons
+// add keys $lang[] from addons below this line
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+
+// hide
+$lang['bbcbxr_help']['hide'] = "Protected Message: [hide]hidden text[/hide]";
+$lang['bbcbxr_desc']['hide'] = 'Hidden text';
+#
+#-----[ OPEN ]------------------------------------------------
+#
+language/lang_english/lang_main.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+?>
+#
+#-----[ BEFORE, ADD ]-----------------------------------------
+#
+//-- mod : addon hide for bbcbxr -----------------------------------------------
+//-- add
+$lang['Hide'] = 'Protected Message';
+$lang['Hide_text'] = '---If you are a *registered user* : you need to post in this topic to see the message ---';
+$lang['Hide_in_quote'] = '---phpBB : The Protected Message is not copied in this quote ---';
+//-- fin mod : addon hide for bbcbxr -------------------------------------------
+#
+#-----[ OPEN ]------------------------------------------------
+#
+templates/subSilver/bbcode.tpl
+#
+#-----[ FIND ]------------------------------------------------
+#
+<!-- BEGIN font_close --></span><!-- END font_close -->
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+<!-- BEGIN show --> 
+</span>
+<table border="0" align="center" width="90%" cellpadding="3" cellspacing="1">
+  <tr> 
+	<td><span class="genmed"><b>{L_HIDE}:</b></span></td>
+  </tr>
+  <tr>
+	<td class="quote">{HTEXTE}</td>
+  </tr>
+</table>
+<span class="postbody">
+<!-- END show --> 
+
+<!-- BEGIN hide --> 
+</span>
+<table border="0" align="center" width="90%" cellpadding="3" cellspacing="1">
+  <tr> 
+	<td><span class="genmed"><b>{L_HIDE}:</b></span></td>
+  </tr>
+  <tr>
+	<td class="quote" align="middle">{L_HIDE_TEXT}</td>
+  </tr>
+</table>
+<span class="postbody">
+<!-- END hide -->
+#
+#-----[ SAVE/CLOSE ALL FILES ]--------------------------------
+#
+# EoM

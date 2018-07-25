@@ -1,0 +1,44 @@
+##############################################################
+## MOD Title:	Resync topics - Categories Hierarchy 2.1.x edition
+## MOD Author: Ptirhiik < ptirhiik@clanmckeen.com > (Pierre) http://rpgnet.clanmckeen.com
+## MOD Description:
+##		This goody allows to resync topics last post informations
+##		It requires to have Categories Hierarchy v 2.1.x installed.
+##
+## MOD Version: 1.0.0
+##
+## Installation Level: Easy
+## Installation Time: 5 Minutes
+## Files To Edit: n/a
+##
+## Included Files: see the root/ dir
+##############################################################
+## For Security Purposes, Please Check: http://www.phpbb.com/mods/ for the
+## latest version of this MOD. Downloading this MOD from other sites could cause malicious code
+## to enter into your phpBB Forum. As such, phpBB will not offer support for MOD's not offered
+## in our MOD-Database, located at: http://www.phpbb.com/mods/
+##############################################################
+## Author Notes:
+##
+##############################################################
+## MOD History:
+##
+##   2005-10-29 - Version 1.0.0
+##	- first publication
+##
+##############################################################
+## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD
+##############################################################
+#
+#-----[ COPY ]------------------------------------------------
+#
+COPY root/*.* TO *.*
+#
+#-----[ DIY INSTRUCTIONS ]------------------------------------
+#
+Hit http://your_board.com/install_cat/resync.php, follow the instructions.
+Once completed, delete install_cat/ directory.
+#
+#-----[ SAVE/CLOSE ALL FILES ]--------------------------------
+#
+# EoM

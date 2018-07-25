@@ -1,0 +1,49 @@
+<!-- BEGIN stats -->
+<table class="forumline" width="100%" cellpadding="4" cellspacing="1" border="0">
+	<tr>
+		<td class="catHead" height="28" colspan="2"><span class="cattitle"><a href="{U_VIEWONLINE}" class="cattitle">{L_VIEWONLINE}</a></span></td>
+	</tr>
+	<!-- BEGIN root -->
+	<tr>
+		<td class="row1" width="50" align="center" valign="middle" rowspan="<!-- BEGIN extended -->4<!-- BEGINELSE extended -->3<!-- END extended -->">
+			<a href="{U_VIEWONLINE}" class="cattitle"><img src="{I_VIEWONLINE}" alt="{L_VIEWONLINE}" border="0" /></a>
+		</td>
+		<td class="row1" align="left"><span class="gensmall">
+			{TOTAL_POSTS}<br />
+			{TOTAL_USERS} :: {NEWEST_USER}<br />
+			{RECORD_USERS}<br />
+		</span></td>
+	</tr>
+	<!-- END root -->
+	<tr>
+	<!-- BEGIN root_ELSE -->
+		<td class="row1" width="50" align="center" valign="middle" rowspan="2"><a href="{U_VIEWONLINE}" class="cattitle"><img src="{I_VIEWONLINE}" alt="{L_VIEWONLINE}" border="0" /></a>
+		</td>
+	<!-- END root_ELSE -->
+		<td class="row1">
+			<!-- BEGIN root --><span class="gensmall">{L_TOTAL_ONLINE}{TOTAL_USERS_ONLINE}</span><hr /><!-- END root -->
+			<span class="gensmall">{L_ONLINE_USERS}&nbsp;<!-- BEGIN root_ELSE -->{TOTAL_USERS_ONLINE}<br /><!-- END root_ELSE --><!-- BEGIN online --><!-- BEGIN sep -->, <!-- END sep --><a href="{stats.online.U_VIEW_PROFILE}" title="{L_VIEW_PROFILE}" class="gensmall" {stats.online.STYLE}>{stats.online.USERNAME}</a><!-- END online --><!-- BEGIN none -->{NO_USERS_ONLINE}<!-- END none -->
+		</span></td>
+	</tr>
+	<!-- BEGIN past -->
+	<tr>
+		<td class="row1" align="left"><span class="gensmall">
+			{L_TOTAL_PAST}{TOTAL_PAST_USERS}<br />{TOTAL_HOUR_USERS}</span><hr /><span class="gensmall">
+			{L_ONLINE_USERS}&nbsp;<!-- BEGIN online --><!-- BEGIN sep -->, <!-- END sep --><a href="{stats.past.online.U_VIEW_PROFILE}" title="{L_VIEW_PROFILE}" class="gensmall" {stats.past.online.STYLE}>{stats.past.online.USERNAME}</a><!-- END online --><!-- BEGIN none -->{NO_USERS_ONLINE}<!-- END none -->
+		</span></td>
+	</tr>
+	<!-- END past -->
+	<tr>
+		<td class="row1"><span class="gensmall">
+			<b>{L_LEGEND}:</b>&nbsp;<!-- BEGIN legend -->[&nbsp;<!-- BEGIN link --><a href="{stats.legend.U_LEVEL}" class="gensmall" {stats.legend.STYLE}><!-- BEGINELSE link --><span {stats.legend.STYLE}><!-- END link --><b>{stats.legend.LEVEL_NAME}</b><!-- BEGIN link --></a><!-- BEGINELSE link --></span><!-- END link -->&nbsp;]&nbsp;<!-- END legend -->
+		</span></td>
+	</tr>
+</table>
+<table class="shadow" cellpadding="0" cellspacing="0" border="0">
+	<tr>
+		<td class="shleft"><img src="{I_SPACER}" alt="" width="8" height="4" /></td>
+		<td class="shbottom"><img src="{I_SPACER}" alt="" width="8" height="4" /></td>
+		<td class="shright"><img src="{I_SPACER}" alt="" width="8" height="4" /></td>
+	</tr>
+</table>
+<!-- END stats -->

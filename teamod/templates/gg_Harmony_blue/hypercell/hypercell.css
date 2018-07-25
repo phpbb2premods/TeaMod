@@ -1,0 +1,105 @@
+/* Hypercell CSS for subSilver Style */
+/* background-color #EFEFEF is the value from td.row1 Class in subSilver.css file */
+/* background #DEE3E7 is the value from td.row2 Class in subSilver.css file */
+/* background-color #D1D7DC is the value from td.row3Right Class in subSilver.css file */
+
+
+/* Hypercell on Forum Index */
+td.hccRow { background-color: #EFEFEF; }
+td.hccRow:hover, td.hccRowHover {
+	background: #DEE3E7 url(images/hcc_default.gif) bottom right no-repeat;
+}
+td.hccRow-new { background-color: #EFEFEF; }
+td.hccRow-new:hover, td.hccRow-newHover {
+	background: #DEE3E7 url(images/hcc_new.gif) bottom right no-repeat;
+}
+td.hccRow-lock { background-color: #EFEFEF; }
+td.hccRow-lock:hover, td.hccRow-lockHover {
+	background: #DEE3E7 url(images/hcc_lock.gif) bottom right no-repeat;
+}
+
+
+/* Hypercell on Link Cat - Cat Hierarchy MOD */
+td.hccRow-link { background-color: #EFEFEF; }
+td.hccRow-link:hover, td.hccRow-linkHover {
+	background: #DEE3E7 url(images/hcc_link.gif) bottom right no-repeat;
+}
+
+
+/* Hypercell on Viewforum */
+td.hccRow-announce { background-color: #EFEFEF; }
+td.hccRow-announce:hover, td.hccRow-announceHover {
+	background: #DEE3E7 url(images/hcc_announce.gif) bottom right no-repeat;
+}
+td.hccRow-new-announce { background-color: #EFEFEF; }
+td.hccRow-new-announce:hover, td.hccRow-new-announceHover {
+	background: #DEE3E7 url(images/hcc_new_announce.gif) bottom right no-repeat;
+}
+
+td.hccRow-sticky { background-color: #EFEFEF; }
+td.hccRow-sticky:hover, td.hccRow-stickyHover {
+	background: #DEE3E7 url(images/hcc_sticky.gif) bottom right no-repeat;
+}
+td.hccRow-new-sticky { background-color: #EFEFEF; }
+td.hccRow-new-sticky:hover, td.hccRow-new-stickyHover {
+	background: #DEE3E7 url(images/hcc_new_sticky.gif) bottom right no-repeat;
+}
+
+td.hccRow-hot { background-color: #EFEFEF; }
+td.hccRow-hot:hover, td.hccRow-hotHover {
+	background: #DEE3E7 url(images/hcc_hot.gif) bottom right no-repeat;
+}
+td.hccRow-new-hot { background-color: #EFEFEF; }
+td.hccRow-new-hot:hover, td.hccRow-new-hotHover {
+	background: #DEE3E7 url(images/hcc_new_hot.gif) bottom right no-repeat;
+}
+
+
+/* row3Right and all hccRow Right Class */
+/* background-color #CCD3D9 is a color slightly darker than td.row3Right in subSilver.css file */
+td.row3Right:hover, td.row3RightHover { background-color: #CCD3D9; }
+
+td.hccRow-right { background-color: #D1D7DC; }
+td.hccRow-right:hover, td.hccRow-rightHover {
+	background: #CCD3D9 url(images/hcc_default.gif) bottom right no-repeat;
+}
+
+td.hccRow-new-right { background-color: #D1D7DC; }
+td.hccRow-new-right:hover, td.hccRow-new-rightHover {
+	background: #CCD3D9 url(images/hcc_new.gif) bottom right no-repeat;
+}
+
+td.hccRow-lock-right { background-color: #D1D7DC; }
+td.hccRow-lock-right:hover, td.hccRow-lock-rightHover {
+	background: #CCD3D9 url(images/hcc_lock.gif) bottom right no-repeat;
+}
+
+td.hccRow-announce-right { background-color: #D1D7DC; }
+td.hccRow-announce-right:hover, td.hccRow-announce-rightHover {
+	background: #CCD3D9 url(images/hcc_announce.gif) bottom right no-repeat;
+}
+
+td.hccRow-new-announce-right { background-color: #D1D7DC; }
+td.hccRow-new-announce-right:hover, td.hccRow-new-announce-rightHover {
+	background: #CCD3D9 url(images/hcc_new_announce.gif) bottom right no-repeat;
+}
+
+td.hccRow-sticky-right { background-color: #D1D7DC; }
+td.hccRow-sticky-right:hover, td.hccRow-sticky-rightHover {
+	background: #CCD3D9 url(images/hcc_sticky.gif) bottom right no-repeat;
+}
+
+td.hccRow-new-sticky-right { background-color: #D1D7DC; }
+td.hccRow-new-sticky-right:hover, td.hccRow-new-sticky-rightHover {
+	background: #CCD3D9 url(images/hcc_new_sticky.gif) bottom right no-repeat;
+}
+
+td.hccRow-hot-right { background-color: #D1D7DC; }
+td.hccRow-hot-right:hover, td.hccRow-hot-rightHover {
+	background: #CCD3D9 url(images/hcc_hot.gif) bottom right no-repeat;
+}
+
+td.hccRow-new-hot-right { background-color: #D1D7DC; }
+td.hccRow-new-hot-right:hover, td.hccRow-new-hot-rightHover {
+	background: #CCD3D9 url(images/hcc_new_hot.gif) bottom right no-repeat;
+}

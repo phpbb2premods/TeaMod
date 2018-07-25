@@ -1,0 +1,45 @@
+##############################################################
+## MOD Title:   Thumbnails BBcode
+## MOD Version: 1.0.2
+## Translation: Français (French)
+## Rev date:    06/11/05
+## 
+## Translator:  reddog (n/a) http://www.reddevboard.com/
+##
+##############################################################
+#
+#-----[ OPEN ]------------------------------------------------
+#
+language/lang_french/lang_bbc_box.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+// addons
+// add keys $lang[] from addons below this line
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+// thumbnail
+$lang['bbcbxr_help']['tmb'] = 'Insérer une miniature: [tmb]http://image_url[/tmb]';
+$lang['bbcbxr_desc']['tmb'] = 'Miniature';
+#
+#-----[ OPEN ]------------------------------------------------
+#
+language/lang_french/lang_main.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+//
+// That's all, Folks
+#
+#-----[ BEFORE, ADD ]-----------------------------------------
+#
+//-- mod : thumbnails ----------------------------------------------------------
+//-- add
+$lang['Thumbnails_alt'] = 'Image postée, réduite en taille. Si aucune image n\'est visible le serveur est mort ou non liable à distance';
+$lang['Thumbnails_title'] = 'Cliquez pour agrandir';
+//-- fin mod : thumbnails ------------------------------------------------------
+# 
+#-----[ SAVE/CLOSE ALL FILES ]-------------------------------- 
+# 
+# EoM

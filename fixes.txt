@@ -1,0 +1,2 @@
+- Fix calendar link in header
+- Fix magic quotes

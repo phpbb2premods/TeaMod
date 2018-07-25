@@ -1,0 +1,174 @@
+##############################################################
+## MOD Title:		Thumbnails BBcode
+## MOD Author:		reddog < N/A > (N/A) http://www.reddevboard.com
+## MOD Description:	adds image in your posts (as such for
+##			example a wallpaper) like a thumbnail
+## MOD Version:		1.1.2
+## MOD Compatibility:	2.0.17 (required BBcode Box Reloaded 1.2.2)
+##
+## Installation Level:	Easy
+## Installation Time:	5 Minutes
+## Files To Edit:	4
+##	includes/bbcode.php
+##	language/lang_english/lang_bbc_box.php
+##	language/lang_english/lang_main.php
+##	templates/subSilver/bbcode.tpl
+## Included Files:	2
+##	root/templates/bbc_box/styles/bbclite/tmb.gif
+##	root/templates/bbc_box/styles/default/tmb.gif
+##
+## License: http://opensource.org/licenses/gpl-license.php GNU General Public License v2
+##############################################################
+## For security purposes, please check: http://www.phpbb.com/mods/
+## for the latest version of this MOD. Although MODs are checked
+## before being allowed in the MODs Database there is no guarantee
+## that there are no security problems within the MOD. No support
+## will be given for MODs not found within the MODs Database which
+## can be found at http://www.phpbb.com/mods/
+##############################################################
+## Author Notes:
+##
+##############################################################
+## MOD History:
+##
+## 2005-10-06 - Version 1.1.2
+##	- ensure BBcBxR 1.2.2 compliancy
+## 2005-08-13 - Version 1.1.1
+##	- compatibility with BBcBxR 1.2.1
+## 2005-06-14 - Version 1.1.0
+##	- re-coded addon (compatibility with BBcBxR 1.2.0)
+## 2005-06-04 - Version 1.0.1
+##	- code improvements
+## 2005-06-01 - Version 1.0.0
+##      - first release
+##
+##############################################################
+## Before Adding This MOD To Your Forum, You Should Back Up All Files Related To This MOD 
+##############################################################
+#
+#-----[ SQL ]-------------------------------------------------
+#
+
+INSERT INTO phpbb_bbc_box (bbc_name, bbc_value, bbc_auth, bbc_before, bbc_after, bbc_helpline, bbc_img, bbc_divider) VALUES ('tmb', '1', '0', 'tmb', 'tmb', 'tmb', 'tmb', '0');
+
+#
+#-----[ DIY INSTRUCTIONS ]------------------------------------
+#
+
+after to have execute this SQL query, go to ACP --> BBcode Box --> Configuration
+and renew the cache file
+
+(après avoir exécuté cette requête SQL, allez dans l'Administration --> BBcode Box --> Configuration
+et régénérez le fichier cache)
+
+#
+#-----[ COPY ]------------------------------------------------
+#
+copy root/templates/bbc_box/styles/bbclite/tmb.gif to templates/bbc_box/styles/bbclite/tmb.gif
+copy root/templates/bbc_box/styles/default/tmb.gif to templates/bbc_box/styles/default/tmb.gif
+#
+#-----[ OPEN ]------------------------------------------------
+#
+includes/bbcode.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+	$bbcode_tpl['font_open'] = str_replace('{FONT}', '\\1', $bbcode_tpl['font_open']);
+//-- fin mod : bbcode box reloaded ---------------------------------------------
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : thumbnails ----------------------------------------------------------
+//-- add
+	$bbcode_tpl['thumbnails'] = str_replace('{URL}', '\\1', $bbcode_tpl['thumbnails']);
+	$bbcode_tpl['thumbnails'] = str_replace('{L_THUMBNAILS_ALT}', $lang['Thumbnails_alt'], $bbcode_tpl['thumbnails']);
+	$bbcode_tpl['thumbnails'] = str_replace('{L_THUMBNAILS_TITLE}', $lang['Thumbnails_title'], $bbcode_tpl['thumbnails']);
+//-- fin mod : thumbnails ------------------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+	$text = str_replace("[/font:$uid]", $bbcode_tpl['font_close'], $text);
+//-- fin mod : bbcode box reloaded ---------------------------------------------
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : thumbnails ----------------------------------------------------------
+//-- add
+	// [tmb]image_url_here[/tmb] for displaying thumbnails
+	// This one gets first-passed..
+	$tmb = $bbc_tag['tmb'];
+	$patterns[] = "#\[$tmb:$uid\]([^?].*?)\[/$tmb:$uid\]#i";
+	$replacements[] = $bbcode_tpl['thumbnails'];
+//-- fin mod : thumbnails ------------------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+	$text = preg_replace("#\[font=(.*?)\](.*?)\[/font\]#si", "[font=\\1:$uid]\\2[/font:$uid]", $text);
+//-- fin mod : bbcode box reloaded ---------------------------------------------
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : thumbnails ----------------------------------------------------------
+//-- add
+	// [tmb]image_url_here[/tmb] for displaying thumbnails
+	$tmb = $bbc_tag['tmb'];
+	$bbc_sort = bbc_auth($bbc_auth['tmb']);
+	$text = ($bbc_value['tmb'] && $bbc_sort) ? preg_replace("#\[$tmb\]((http|ftp)://)([^ \?&=\#\"\n\r\t<]*?(\.(jpg|jpeg|gif|png)))\[/$tmb\]#sie", "'[$tmb:$uid]\\1' . str_replace(' ', '%20', '\\3') . '[/$tmb:$uid]'", $text) : $text;
+//-- fin mod : thumbnails ------------------------------------------------------
+#
+#-----[ OPEN ]------------------------------------------------ 
+#
+language/lang_english/lang_bbc_box.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+// addons
+// add keys $lang[] from addons below this line
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+
+// thumbnail
+$lang['bbcbxr_help']['tmb'] = 'Insert a thumbnail: [tmb]http://image_url[/tmb]';
+$lang['bbcbxr_desc']['tmb'] = 'Thumbnail';
+#
+#-----[ OPEN ]------------------------------------------------
+#
+language/lang_english/lang_main.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+?>
+#
+#-----[ BEFORE, ADD ]-----------------------------------------
+#
+//-- mod : thumbnails ----------------------------------------------------------
+//-- add
+$lang['Thumbnails_alt'] = 'Posted Image, reduced in size. If no image is visible the server is dead or non-remote linkable';
+$lang['Thumbnails_title'] = 'Click to view full-size';
+//-- fin mod : thumbnails ------------------------------------------------------
+#
+#-----[ OPEN ]------------------------------------------------
+#
+templates/subSilver/bbcode.tpl
+#
+#-----[ FIND ]------------------------------------------------
+#
+<!-- BEGIN font_close --></span><!-- END font_close -->
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+# on a new line after <!-- END font_close --> (not the same line)
+#
+
+<!-- BEGIN thumbnails --></span>
+<table cellspacing="0" cellpadding="0" align="center" style="background-color:#000000; border:1px #000000 solid; color:#ffffff; font-size:11px;">
+  <tr>
+	<td align="center"><a href="{URL}" target="_new"><img src="{URL}" border="0" alt="{L_THUMBNAILS_ALT}" title="{L_THUMBNAILS_TITLE}" width="300" /></a><br />{L_THUMBNAILS_TITLE}</td>
+  </tr>
+</table>
+<span class="postbody"><!-- END thumbnails -->
+#
+#-----[ SAVE/CLOSE ALL FILES ]--------------------------------
+#
+# EoM

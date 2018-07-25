@@ -1,0 +1,55 @@
+############################################################## 
+## MOD Title:   Addon BBcode Hide for BBcode Box Reloaded
+## MOD Version: 1.0.6
+## Translation: Français (French)
+## Rev date:    06/11/05
+## 
+## Translator:  reddog (n/a) http://www.reddevboard.com/
+##
+##############################################################
+#
+#-----[ OPEN ]------------------------------------------------
+#
+language/lang_english/lang_bbc_box.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+// addons
+// add keys $lang[] from addons below this line
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+
+// hide
+$lang['bbcbxr_help']['hidde'] = "Message protégé: [hide]texte caché[/hide]";
+$lang['bbcbxr_desc']['hidde'] = 'Texte caché';
+#
+#-----[ OPEN ]------------------------------------------------
+#
+language/lang_french/lang_main.php
+#
+#-----[ FIND ]------------------------------------------------
+#
+<?php
+#
+#-----[ AFTER, ADD ]------------------------------------------
+#
+//-- mod : addon hide for bbcbxr -------------------------------------------------------------------
+#
+#-----[ FIND ]------------------------------------------------
+#
+//
+// That's all Folks
+# 
+#-----[ BEFORE, ADD ]----------------------------------------- 
+#
+//-- mod : addon hide for bbcbxr -------------------------------------------------------------------
+//-- add
+$lang['Hide'] = 'Message protégé';
+$lang['Hide_text'] = '--- Seul les *membres* ayant posté dans ce sujet peuvent voir le message ---';
+$lang['Hide_in_quote'] = '--- phpBB : Le message protégé n\'est pas recopié dans cette citation ---';
+//-- fin mod : addon hide for bbcbxr ---------------------------------------------------------------
+# 
+#-----[ SAVE/CLOSE ALL FILES ]-------------------------------- 
+# 
+# EoM
